@@ -1,0 +1,27 @@
+.layout {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.layout__title {
+  text-align: center;
+}
+
+.layout__subtitle {
+  text-align: center;
+}
+
+.layout__content {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 500px;
+}
+
+.layout__select-wrapp {
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.layout__select {
+  margin-left: 30px;
+}
