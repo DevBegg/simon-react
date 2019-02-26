@@ -1,61 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
-import getRandomSteps from '../../helpers';
-
-const isStepsEqual = (stepsPart, lengthController, userSteps) => {
-   return stepsPart[lengthController] == userSteps[lengthController];
-};
+import { getRandomSteps, isStepsEqual } from '../../helpers';
 
 const initialState = {
   turn: '',
-  squares: [
-    {
-      id: 0,
-      color: 'red',
-    },
-    {
-      id: 1,
-      color: 'green',
-    },
-    {
-      id: 2,
-      color: 'blue',
-    },
-    {
-      id: 3,
-      color: 'yellow',
-    },
-  ],
   stepsPart: [],
   userSteps: [],
   clickable: false,
-  chosenLevel: {
-    id: 0,
-    text: 'Easy',
-    value: 'easy',
-    time: 1500,
-  },
   activeSquare: null,
-  lengthController: -1,
-  difficultyLevels: [
-    {
-      id: 0,
-      text: 'Easy',
-      value: 'easy',
-      time: 1500,
-    },
-    {
-      id: 1,
-      text: 'Medium',
-      value: 'medium',
-      time: 1000,
-    },
-    {
-      id: 2,
-      text: 'Hard',
-      value: 'hard',
-      time: 400,
-    },
-  ],
+  elementIndex: -1,
   stepsToReproduce: getRandomSteps(),
 };
 
@@ -63,9 +15,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'USER_STEP_UPDATE': {
-      state.lengthController ++;
+      state.elementIndex ++;
       state.userSteps = [...state.userSteps, action.payload];
-      let nextTurn = isStepsEqual(state.stepsPart, state.lengthController, state.userSteps);
+      let nextTurn = isStepsEqual(state.stepsPart, state.elementIndex, state.userSteps);
       // if (state.stepsPart.length == state.stepsToReproduce.length) {
       //   alert('Congratilations! You have won.');
       //   return{ ...initialState, stepsToReproduce: getRandomSteps() }
@@ -111,7 +63,7 @@ const reducer = (state = initialState, action) => {
     case 'UPDATE_ELEMENT_INDEX': {
       return {
         ...state,
-        lengthController: action.payload
+        elementIndex: action.payload
       }
     }
     case 'LIGHT_ELEMENT_UP': {
@@ -164,11 +116,6 @@ export const lightElementUp = (id) => ({
 
 export const resetActiveSquare = () => ({
   type: 'RESET_ACTIVE_SQUARE',
-})
-
-export const choseDiffLevel = (payload) => ({
-  type: 'CHOSE_DIFFICULTY_LEVEL',
-  payload: payload
 })
 
 const store = createStore(reducer);

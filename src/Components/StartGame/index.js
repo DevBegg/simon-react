@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import './styles.css';
 
 export default class StartGame extends PureComponent {
+
+  static propTypes = {
+    stepsToReproduce: PropTypes.array.isRequired,
+    stepsPart: PropTypes.array.isRequired,
+  };
 
   startGame = () => {
     const { stepsToReproduce, updateStepsPartly } = this.props;

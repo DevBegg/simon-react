@@ -1,9 +1,13 @@
 const getRandomSteps = () => {
-  var steps = []
-    for(var i = 0; i < 24; i++) {
-      steps[i] = Math.floor(Math.random() * (Math.floor(3) - Math.ceil(0) + 1)) + Math.ceil(0);
+  let steps = []
+    for(let i = 0; i < 24; i++) {
+      steps[i] = Math.floor(Math.random() * 4);
     }
   return steps;
 };
 
-export default getRandomSteps;
+const isStepsEqual = (stepsPart, elementIndex, userSteps) => {
+   return stepsPart[elementIndex] == userSteps[elementIndex];
+};
+
+export { getRandomSteps, isStepsEqual };
